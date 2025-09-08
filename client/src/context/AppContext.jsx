@@ -39,15 +39,26 @@ export const AppContextProvider = (props)=>{
 
     }
 
-    //Calculate course duration
-    const calculateCourseDuration=(course)=>{
-        let time=0
-        course.courseContent.map((chapter)=>chapter.cha.map((lecture)=>{
-            time+=lecture.lectureDuration
-            return humanizeDuration(time * 60 *1000,{units:["h","m"]})
+    // //Calculate course duration
+    // const calculateCourseDuration=(course)=>{
+    //     let time=0
+    //     course.courseContent.map((chapter)=>chapter.chapterContent.map((lecture)=>{
+    //         time+=lecture.lectureDuration
+    //         return humanizeDuration(time * 60 *1000,{units:["h","m"]})
 
-        }))
-    }
+    //     }))
+    // }
+
+    const calculateCourseDuration = (course) => {
+    let time = 0;
+    course.courseContent.forEach((chapter) => {
+        chapter.chapterContent.forEach((lecture) => {
+            time += lecture.lectureDuration;
+        });
+    });
+    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
+};
+
 
     //Calcualte lectures in code
     const calculateNoOfLectures=(course)=>{
@@ -80,3 +91,5 @@ console.log(" Context value exported:", value);
     )
 
 }
+
+export default AppContextProvider;
